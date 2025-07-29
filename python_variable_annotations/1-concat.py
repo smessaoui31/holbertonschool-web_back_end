@@ -1,4 +1,4 @@
-#!usr/bin/env python3
+#!/usr/bin/env python3
 """
 Module that takes two strings as arguments
 and returns a concatenated string
