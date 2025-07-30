@@ -6,7 +6,7 @@ and returns results in order of completion.
 
 import asyncio
 from typing import List
-from basic_async_syntax import wait_random
+from 0-basic_async_syntax import wait_random
 
 
 async def wait_n(n: int, max_delay: int) -> List[float]:
