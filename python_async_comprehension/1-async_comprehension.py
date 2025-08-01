@@ -2,7 +2,7 @@
 """Async comprehension to collect values from async_generator."""
 
 from typing import List
-from 0-async_generator import async_generator
+from async_generator import async_generator
 
 
 async def async_comprehension() -> List[float]:
