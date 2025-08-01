@@ -1,8 +1,11 @@
 #!/usr/bin/env python3
 """Async comprehension to collect values from async_generator."""
 
-from typing import List
-from async_generator import async_generator
+from typing import Generator, List
+import random
+import asyncio
+
+async_generator = __import__('0-async_generator').async_generator
 
 
 async def async_comprehension() -> List[float]:
@@ -13,3 +16,4 @@ async def async_comprehension() -> List[float]:
         List[float]: List of 10 random float values.
     """
     return [i async for i in async_generator()]
+Ò
