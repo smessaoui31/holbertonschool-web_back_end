@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
-"""Async generator that yields 10 random floats between 0 and 10, with 1-second intervals."""
+"""
+Async generator that yields 10 random floats between
+0 and 10, with 1-second intervals.
+"""
 
 import asyncio
 import random
