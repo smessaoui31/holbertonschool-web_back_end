@@ -4,7 +4,7 @@ Pagination utilities and Server class for baby names dataset.
 """
 import csv
 from typing import List, Tuple
-
+import math
 
 def index_range(page: int, page_size: int) -> Tuple[int, int]:
     """
