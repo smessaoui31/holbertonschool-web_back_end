@@ -44,12 +44,13 @@ class Server:
         if index is None:
             index = 0
 
-        assert isinstance(index, int) and index >= 0, "index must be >= 0"
-        assert isinstance(page_size, int) and page_size > 0, "page_size must be > 0"
+        assert isinstance(index, int) and index >= 0
+        assert isinstance(page_size, int) and page_size > 0
 
         indexed = self.indexed_dataset()
         if not indexed:
-            return {"index": index, "next_index": None, "page_size": 0, "data": []}
+            return {"index": index, "next_index": None,
+                    "page_size": 0, "data": []}
 
         max_key = max(indexed.keys())
         assert index <= max_key, "index out of range"
