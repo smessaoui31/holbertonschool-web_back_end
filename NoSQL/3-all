@@ -1,0 +1,2 @@
+// Scrit that lists all documents in a specific collection.
+db.school.find()
