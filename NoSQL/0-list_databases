@@ -1,3 +1,2 @@
 // Script that lists  all database in MongoDB
-#!/usr/bin/env python3
 show dbs
