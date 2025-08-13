@@ -1,0 +1,2 @@
+// Script that use a specific database in MongoDB.
+use my_db
