@@ -1,19 +1,18 @@
-import Building from './5-building.js';
+/* eslint no-underscore-dangle: 0 */
+export default class Building {
+  constructor(sqft) {
+    if (typeof sqft !== 'number') {
+      throw TypeError('SQFT must be a number');
+    }
+    if ((this.constructor.name !== 'Building') && (typeof this.evacuationWarningMessage === 'undefined')) {
+      throw new Error('Class extending Building must override evacuationWarningMessage');
+    }
 
-class TestBuilding extends Building {
-  evacuationWarningMessage() {
-    return 'Evacuate immediately!';
+    this._sqft = sqft;
   }
-}
 
-const b1 = new TestBuilding(200);
-console.log(b1.sqft); // 200
-console.log(b1.evacuationWarningMessage());
-
-class BrokenBuilding extends Building {}
-
-try {
-  const b2 = new BrokenBuilding(100);
-} catch (err) {
-  console.log(err.message);
+  // SQFT
+  get sqft() {
+    return this._sqft;
+  }
 }
