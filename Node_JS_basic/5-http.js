@@ -16,7 +16,7 @@ function countStudents(path) {
         .map((line) => line.trim())
         .filter((line) => line.length > 0);
 
-        const rows = lines.slice(1);
+      const rows = lines.slice(1);
       const total = rows.length;
 
       const fields = {};
@@ -40,7 +40,7 @@ function countStudents(path) {
           output += `Number of students in ${field}: ${list.length}. List: ${list.join(', ')}\n`;
         });
 
-      resolve(output.trim()); // trim to remove last \n
+      resolve(output.trim());
     });
   });
 }
