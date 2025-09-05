@@ -1,14 +1,8 @@
-// 5-http.js
 const http = require('http');
 const fs = require('fs');
 
 const database = process.argv[2];
 
-/**
- * Reads the CSV database asynchronously and returns a string with the student stats.
- * @param {string} path
- * @returns {Promise<string>}
- */
 function countStudents(path) {
   return new Promise((resolve, reject) => {
     fs.readFile(path, 'utf8', (err, data) => {
@@ -22,8 +16,7 @@ function countStudents(path) {
         .map((line) => line.trim())
         .filter((line) => line.length > 0);
 
-      // remove header
-      const rows = lines.slice(1);
+        const rows = lines.slice(1);
       const total = rows.length;
 
       const fields = {};
