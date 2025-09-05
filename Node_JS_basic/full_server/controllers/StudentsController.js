@@ -1,45 +1,29 @@
-import readDatabase from '../utils.js';
+import readDatabase from '../utils';
 
 class StudentsController {
-  static async getAllStudents(_req, res) {
-    const dbPath = process.argv[2];
-    const header = 'This is the list of our students';
-
-    try {
-      const data = await readDatabase(dbPath);
-      const fields = Object.keys(data).sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
-
-      const lines = [header];
-      const total = fields.reduce((acc, f) => acc + (data[f]?.length || 0), 0);
-      lines.push(`Number of students: ${total}`);
-
-      fields.forEach((field) => {
-        const list = data[field] || [];
-        lines.push(`Number of students in ${field}: ${list.length}. List: ${list.join(', ')}`);
-      });
-
-      res.status(200).type('text/plain').send(lines.join('\n'));
-    } catch (_e) {
-      res.status(500).type('text/plain').send('Cannot load the database');
-    }
+  static getAllStudents(req, res) {
+    readDatabase(process.argv[2])
+      .then((data) => {
+        let result = 'This is the list of our students';
+        for (const [key] of Object.entries(data).sort()) {
+          result += `\nNumber of students in ${key}: ${data[key].length}. List: ${data[key].join(', ')}`;
+        }
+        res.status(200).send(result);
+      })
+      .catch(() => res.status(500).send('Cannot load the database'));
   }
 
-  static async getAllStudentsByMajor(req, res) {
-    const dbPath = process.argv[2];
-    const { major } = req.params;
-
-    if (major !== 'CS' && major !== 'SWE') {
-      res.status(500).type('text/plain').send('Major parameter must be CS or SWE');
-      return;
-    }
-
-    try {
-      const data = await readDatabase(dbPath);
-      const list = data[major] || [];
-      res.status(200).type('text/plain').send(`List: ${list.join(', ')}`);
-    } catch (_e) {
-      res.status(500).type('text/plain').send('Cannot load the database');
-    }
+  static getAllStudentsByMajor(req, res) {
+    readDatabase(process.argv[2])
+      .then((data) => {
+        if (Object.keys(data).includes(req.params.major)) {
+          const result = `List: ${data[req.params.major].join(', ')}`;
+          res.status(200).send(result);
+        } else {
+          res.status(500).send('Major parameter must be CS or SWE');
+        }
+      })
+      .catch(() => res.status(500).send('Cannot load the database'));
   }
 }
 
