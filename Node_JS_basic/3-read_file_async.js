@@ -1,4 +1,3 @@
-// 3-read_file_async.js
 const fs = require('fs');
 
 function countStudents(path) {
@@ -14,7 +13,6 @@ function countStudents(path) {
         .map((l) => l.trim())
         .filter((l) => l !== '');
 
-      // Remove header
       const rows = lines.slice(1);
 
       console.log(`Number of students: ${rows.length}`);
