@@ -1,41 +1,46 @@
 const fs = require('fs');
 
 async function countStudents(path) {
-  const myPromise = new Promise((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     fs.readFile(path, 'utf8', (err, data) => {
       if (err) {
         reject(new Error('Cannot load the database'));
+        return;
       }
-      resolve(data);
+
+      const lines = data
+        .split('\n')
+        .map((l) => l.trim())
+        .filter((l) => l !== '');
+
+      const rows = lines.slice(1);
+
+      console.log(`Number of students: ${rows.length}`);
+
+      const fields = {};
+      rows.forEach((row) => {
+        const parts = row.split(',');
+        if (parts.length >= 4) {
+          const firstname = parts[0];
+          const field = parts[3];
+          if (field) {
+            if (!fields[field]) fields[field] = [];
+            fields[field].push(firstname);
+          }
+        }
+      });
+
+      Object.keys(fields)
+        .sort()
+        .forEach((field) => {
+          const list = fields[field];
+          console.log(
+            `Number of students in ${field}: ${list.length}. List: ${list.join(', ')}`
+          );
+        });
+
+      resolve();
     });
-  });
-
-  return myPromise.then((data) => {
-    const content = data.split('\n');
-    const fields = {};
-    let total = 0;
-
-    for (let i = 1; i < content.length; i += 1) {
-      const [firstname, , , field] = content[i].split(',');
-
-      if (!(field in fields) && field) {
-        fields[field] = [];
-      }
-
-      if (field) {
-        fields[field].push(firstname);
-        total += 1;
-      }
-    }
-
-    let result = `Number of students: ${total}`;
-
-    for (const [key] of Object.entries(fields)) {
-      result = result + `\nNumber of students in ${key}: ${fields[key].length}. List: ${fields[key].join(', ')}`;
-    }
-
-    console.log(result);
-    return result;
   });
 }
 
