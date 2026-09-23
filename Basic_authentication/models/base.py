@@ -106,7 +106,7 @@ class Base():
         """ Count all objects
         """
         s_class = cls.__name__
-        return len(DATA[s_class].keys())
+        return len(DATA.get(s_class, {}).keys())
 
     @classmethod
     def all(cls) -> Iterable[TypeVar('Base')]:
@@ -119,7 +119,7 @@ class Base():
         """ Return one object by ID
         """
         s_class = cls.__name__
-        return DATA[s_class].get(id)
+        return DATA.get(s_class, {}).get(id)
 
     @classmethod
     def search(cls, attributes: dict = {}) -> List[TypeVar('Base')]:
@@ -134,4 +134,4 @@ class Base():
                     return False
             return True
         
-        return list(filter(_search, DATA[s_class].values()))
+        return list(filter(_search, DATA.get(s_class, {}).values()))
