@@ -1,5 +1,6 @@
+-- Creates the table users with a unique email (does not fail if it already exists)
 CREATE TABLE IF NOT EXISTS users (
-    id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     email VARCHAR(255) NOT NULL UNIQUE,
-    name  VARCHAR(255)
+    name VARCHAR(255)
 );
